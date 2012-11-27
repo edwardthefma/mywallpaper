@@ -14,45 +14,45 @@ import android.content.Context;
 
 public class Renderer extends RajawaliRenderer {
 private PointLight mLight;
-private BaseObject3D mObjectGroup;
+private BaseObject3D mmiku;
 private Animation3D mCameraAnim, mLightAnim;
 
-	public Renderer(Context context) {
-		super(context);
-		setFrameRate(30);
-	}
-
-	public void initScene() {
-		mLight = new PointLight();
-		mLight.setPosition(0, 0, -4);
-		mLight.setPower(3);
-		mCamera.setLookAt(0, 0, 0);
-		mCamera.setZ(-12);
-		
-		mCameraAnim = new RotateAnimation3D(Axis.Y, 360);
-		mCameraAnim.setDuration(8000);
-		mCameraAnim.setRepeatCount(Animation3D.INFINITE);
-		mCameraAnim.setTransformable3D(mObjectGroup);
-
-		mLightAnim = new RotateAroundAnimation3D(new Number3D(), Axis.Z, 10);
-		mLightAnim.setDuration(3000);
-		mLightAnim.setRepeatCount(Animation3D.INFINITE);
-		mLightAnim.setTransformable3D(mLight);
-			
-		ObjParser objParser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.miku);
-		objParser.parse();
-		mObjectGroup = objParser.getParsedObject();
-		mObjectGroup.addLight(mLight);
-		addChild(mObjectGroup);
+public Renderer(Context context) {
+super(context);
+setFrameRate(30);
 }
 
-	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		super.onSurfaceCreated(gl, config);
-		mCameraAnim.start();
-		mLightAnim.start();	
-	}
+public void initScene() {
+mLight = new PointLight();
+mLight.setPosition(0, 0, -4);
+mLight.setPower(3);
+mCamera.setLookAt(0, 0, 0);
+mCamera.setZ(-12);
 
-	public void onDrawFrame(GL10 glUnused) {
-		super.onDrawFrame(glUnused);
-	}
+mCameraAnim = new RotateAnimation3D(Axis.Y, 360);
+mCameraAnim.setDuration(8000);
+mCameraAnim.setRepeatCount(Animation3D.INFINITE);
+mCameraAnim.setTransformable3D(mmiku);
+
+mLightAnim = new RotateAroundAnimation3D(new Number3D(), Axis.Z, 10);
+mLightAnim.setDuration(3000);
+mLightAnim.setRepeatCount(Animation3D.INFINITE);
+mLightAnim.setTransformable3D(mLight);
+
+ObjParser objParser = new ObjParser(mContext.getResources(), mTextureManager, R.raw.miku);
+objParser.parse();
+mmiku = objParser.getParsedObject();
+mmiku.addLight(mLight);
+addChild(mmiku);
+}
+
+public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+super.onSurfaceCreated(gl, config);
+mCameraAnim.start();
+mLightAnim.start();	
+}
+
+public void onDrawFrame(GL10 glUnused) {
+super.onDrawFrame(glUnused);
+}
 }
